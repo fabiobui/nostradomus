@@ -6,3 +6,4 @@ Here you'll find a complete application in order to build up your custom home au
 .. and more !
 
 
+== INSTALLATION GUIDE ==
