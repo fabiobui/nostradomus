@@ -81,19 +81,27 @@ class __TwigTemplate_c51f1e6c26f9d581e705a822f39d1459e0f53ffd8eb4ba3837162002f73
                         </div>
                           </div>
                           <div class=\"row show-grid\">
-                        <div class=\"col-lg-6\">
+                        <div class=\"col-lg-4\">
                             <div class=\"form-group\">
                                 <label>T. Min.</label>
                                 <input type=\"text\" class=\"form-control\" placeholder=\"Min\" name=\"t_min\" id=\"t_min\">
                             </div>
                         </div>
-                        <div class=\"col-lg-6\">
+                        <div class=\"col-lg-4\">
                             <div class=\"form-group\">
                                 <label>T. Max.</label>
                                 <input type=\"text\" class=\"form-control\" placeholder=\"Max\" name=\"t_max\" id=\"t_max\">
                             </div>
                         </div>
-                          </div>
+                        <div class=\"col-lg-4\">
+                            <div class=\"form-group\">
+                               <br>
+                               <button id=\"setTemp\" type=\"button\" class=\"btn btn-success\">
+                               <i class=\"fa fa-wrench fa-fw\"></i> Set        
+                               </button>
+                            </div>
+                        </div>                        
+                        </div>
                         </div>  
                         <div class=\"col-lg-4\">
                             <div class=\"panel panel-green\">
@@ -121,7 +129,7 @@ class __TwigTemplate_c51f1e6c26f9d581e705a822f39d1459e0f53ffd8eb4ba3837162002f73
                     <div class=\"form-group\">
                         <label>Server IP</label>
                         <input type=\"text\" class=\"form-control\" placeholder=\"IP address\" name=\"ip_num\" id=\"ip_num\" value=\"";
-        // line 80
+        // line 88
         echo twig_escape_filter($this->env, (isset($context["ip_server"]) ? $context["ip_server"] : null), "html", null, true);
         echo "\">
                     </div>    
@@ -148,10 +156,10 @@ class __TwigTemplate_c51f1e6c26f9d581e705a822f39d1459e0f53ffd8eb4ba3837162002f73
 ";
     }
 
-    // line 103
+    // line 111
     public function block_scripts($context, array $blocks = array())
     {
-        // line 104
+        // line 112
         echo "   <script type=\"text/javascript\">
      getArduino();
    </script>
@@ -170,6 +178,6 @@ class __TwigTemplate_c51f1e6c26f9d581e705a822f39d1459e0f53ffd8eb4ba3837162002f73
 
     public function getDebugInfo()
     {
-        return array (  155 => 104,  152 => 103,  125 => 80,  47 => 4,  44 => 3,  38 => 2,  11 => 1,);
+        return array (  163 => 112,  160 => 111,  133 => 88,  47 => 4,  44 => 3,  38 => 2,  11 => 1,);
     }
 }
