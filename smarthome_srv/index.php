@@ -87,6 +87,8 @@ $app->get('/postino', function () use ($app) {
   $callback = $app->request()->get('callback');
   $sensor = $app->request()->get('sensor');
   $state  = $app->request()->get('state');
+  $tmin   = $app->request()->get('tmin');
+  $tmax   = $app->request()->get('tmax');  
   
   $msg = $sensor.$state;
 

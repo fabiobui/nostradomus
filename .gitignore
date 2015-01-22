@@ -1,2 +1,4 @@
 smarthome/templates/cache/
 smarthome/logs/
+nostradomus.it/temp/
+*.cache
