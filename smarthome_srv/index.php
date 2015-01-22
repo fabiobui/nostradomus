@@ -92,13 +92,14 @@ $app->get('/postino', function () use ($app) {
   
   if ($sensor=='T') {
     if ($tmin>0) {
-      $msg = 'L'.$tmin;
-      writeStream($msg);
+      $msg1 = 'L'.$tmin;
+      writeStream($msg1);
     }
     if ($tmax>0) {
-      $msg = 'H'.$tmax;
-      writeStream($msg);
+      $msg2 = 'H'.$tmax;
+      writeStream($msg2);
     }
+    $msg = "$msg1 - $msg2";
   } else {
     $msg = $sensor.$state;
     writeStream($msg);
