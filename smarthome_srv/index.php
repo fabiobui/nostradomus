@@ -48,11 +48,12 @@ function writeStream($msgIn) {
   $m0 = $m1 = '';
   while (($m0==$m1) && ($i<5)) {
     $data = readMsg($fp);
-    $m0 = $data['msg'];
+    // remove variable temperature
+    $m0 = preg_replace("/^T=(.*?)\|/i", "", $data['msg']);
     sleep(2);
     fwrite($fp, $msgIn."\r");
     $data = readMsg($fp);
-    $m1 = $data['msg'];
+    $m1 = preg_replace("/^T=(.*?)\|/i", "", $data['msg']);
     $i++;
   }  
   fclose($fp);
