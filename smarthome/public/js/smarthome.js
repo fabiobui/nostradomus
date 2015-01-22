@@ -53,7 +53,7 @@ function jsonCallback(data) {
 }
 
 
-function postArduino(sensor, state) {
+function postArduino(sensor, state, tmin, tmax) {
   // gestisce i dettagli istanze
 //  var data = [{"sensor":"test", "state":"true"}];
   Display_Load();
@@ -67,7 +67,7 @@ function postArduino(sensor, state) {
     contentType: "application/json",
     dataType: 'jsonp',
     jsonpCallback: 'jsonCallback',
-    data : {"sensor": sensor, "state": state},
+    data : {"sensor": sensor, "state": state, "tmin": tmin, "tmax" : tmax},
     success: function(data) {
             Hide_Load();
     },
@@ -90,12 +90,18 @@ $(document).ready(function() {
 
   $('input[name="sw-main"]').on('switchChange.bootstrapSwitch', function(event, state) {
     var stato = (state == false) ? 0 : 1;
-    postArduino('M', stato);
+    postArduino('M', stato, 0, 0);
   });
 
   $('input[name="sw-fan"]').on('switchChange.bootstrapSwitch', function(event, state) {
     var stato = (state == false) ? 2 : 1;
-    postArduino('F', stato);
+    postArduino('F', stato, 0, 0);
+  });
+
+  $( '#setTemp' ).click( function() {
+    var tmin = $('input[name="t_min"]').val();
+    var tmax = $('input[name="t_max"]').val();
+    postArduino('T', false, tmin, tmax);
   });
 
 // Initials
