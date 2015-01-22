@@ -97,7 +97,7 @@ class __TwigTemplate_c51f1e6c26f9d581e705a822f39d1459e0f53ffd8eb4ba3837162002f73
                             <div class=\"form-group\">
                                <br>
                                <button id=\"setTemp\" type=\"button\" class=\"btn btn-success\">
-                               <i class=\"fa fa-wrench fa-fw\"></i> Set        
+                               <i class=\"fa fa-check fa-fw\"></i> Set        
                                </button>
                             </div>
                         </div>                        
