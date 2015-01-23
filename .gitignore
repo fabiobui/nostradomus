@@ -1,4 +1,4 @@
-smarthome/templates/cache/
-smarthome/logs/
+smarthome/templates/cache/*
+smarthome/logs/*.log
 nostradomus.it/temp/
 *.cache
