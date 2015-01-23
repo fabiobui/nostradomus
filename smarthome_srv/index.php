@@ -1,72 +1,29 @@
 <?php
 date_default_timezone_set('Europe/Rome');
 require 'vendor/autoload.php';
+require 'functions.php';
 
-function readMsg($fp) {
-  $i = 0;
-  $msg = '';
-  $read = '';
-  while (($read != "\r") && ($i<80)) {
-    $read = fread($fp, 1);
-    if ($read != "\r") $msg .= $read;
-    $i++;
-  }
-  $data = explode("|", $msg);
-  $ret = array();
-  if (is_array($data) && (count($data)==6)) {
-    foreach ($data as $value) {
-      list($k, $v) = split("=",$value);
-      $ret[$k] = $v;  
-    }
-    $ret['msg'] = $msg;
-    return $ret; 
-  } else {
-    return false;
-  }
-}
-
-
-function readStream(){
-  $fp =fopen("/dev/ttyUSB0", "r");
-  if( !$fp) {
-        echo "Error";die();
-  }
-// fwrite($fp, $_SERVER['argv'][1] . 0x00);
-  $i = 0;
-  while ((($data = readMsg($fp))==false) && ($i<3)) $i++;
-  fclose($fp);
-  return $data; 
-}
-
-
-function writeStream($msgIn) {
-  $fp =fopen("/dev/ttyUSB0", "w");
-  if( !$fp) {
-        echo "Error";die();
-  }
-  $i = 0;
-  $m0 = $m1 = '';
-  while (($m0==$m1) && ($i<5)) {
-    $data = readMsg($fp);
-    // remove variable temperature
-    $m0 = preg_replace("/^T=(.*?)\|/i", "", $data['msg']);
-    sleep(2);
-    fwrite($fp, $msgIn."\r");
-    $data = readMsg($fp);
-    $m1 = preg_replace("/^T=(.*?)\|/i", "", $data['msg']);
-    $i++;
-  }  
-  fclose($fp);
-  return true;
-}
 
 // Prepare app
 $app = new \Slim\Slim();
 
 
+// Create monolog logger and store logger in container as singleton 
+// (Singleton resources retrieve the same log resource definition each time)
+$app->container->singleton('log', function () {
+    $log = new \Monolog\Logger('SmartHome Log');
+    $log->pushHandler(new \Monolog\Handler\StreamHandler('../logs/app.log', \Monolog\Logger::DEBUG));
+    return $log;
+});
+
+
 // handle GET requests for /arduino
 $app->get('/arduino', function () use ($app) {  
+  $app->log->info("SmartHome '/arduino' route");
+
   $data = readStream();
+
+  $app->log->info("SmartHome msg from Arduino: ".$data['msg']);
 
   $callback = $app->request()->get('callback');
 
@@ -83,12 +40,18 @@ $app->get('/arduino', function () use ($app) {
 
 // handle GET requests for /postino
 $app->get('/postino', function () use ($app) {  
+  $app->log->info("SmartHome '/postino' route");
 
   $callback = $app->request()->get('callback');
   $sensor = $app->request()->get('sensor');
   $state  = $app->request()->get('state');
   $tmin   = $app->request()->get('tmin');
   $tmax   = $app->request()->get('tmax');  
+
+  if (isset($sensor)) $app->log->info("SmartHome parameter sensor: ".$sensor);
+  if (isset($state)) $app->log->info("SmartHome parameter state:  ".$state);
+  if (isset($tmin)) $app->log->info("SmartHome parameter tmin:   ".$tmin);
+  if (isset($tmax)) $app->log->info("SmartHome parameter tmax:   ".$tmax);
   
   if ($sensor=='T') {
     if ($tmin>0) {
@@ -105,6 +68,7 @@ $app->get('/postino', function () use ($app) {
     writeStream($msg);
   }
 
+  $app->log->info("SmartHome postino msg: ".$msg);
 
  //Read sensors
   $i=0;
@@ -118,7 +82,6 @@ $app->get('/postino', function () use ($app) {
   echo "$callback(" . json_encode($data) . ");";
 
 });
-
 
 
 // Run app
