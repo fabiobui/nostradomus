@@ -44,7 +44,7 @@ if(!function_exists('optionsframework_options')) {
 								
 			$options['google_mixed_3'] = array(
 								'id' => 'google_mixed_3',
-								'std' => array( 'size' => '15px', 'lineheight' => '22px', 'face' => 'Arial, Helvetica, sans-serif', 'style' => 'normal', 'character'  => 'latin', 'color' => '#9b9b9b'));
+								'std' => array( 'size' => '15px', 'lineheight' => '22px', 'face' => 'Arial, Helvetica, sans-serif', 'style' => 'normal', 'character'  => 'latin', 'color' => '#626262'));
 								
 			$options['h1_heading'] = array(
 								'id' => 'h1_heading',
