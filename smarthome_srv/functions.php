@@ -69,25 +69,28 @@ function decodeMsgIn($msgIn) {
 
 function writeStream($msgIn) {
   $app = \Slim\Slim::getInstance();
-  $fp =fopen("/dev/ttyUSB0", "w");
-  if( !$fp) {
-        echo "Error";die();
-  }
-  $data = readMsg($fp);  // first time read
+
   $i = 0;
+  $iter_max = 10;
   $checkCmd = false; 
-  while (($checkCmd==false) && ($i<5)) {
-    sleep(2); // waiting for Arduino resetting
+  while (($checkCmd==false) && ($i<$iter_max)) {    
+    $fp =fopen("/dev/ttyUSB0", "w");
+    if( !$fp) {
+        echo "Error";die();
+    }
+    fread($fp, 1);
+    sleep(2);
     fwrite($fp, $msgIn."\r");
-    $data = readMsg($fp);
+    fclose($fp);
+    $data = readStream();
     $decodeMsg = decodeMsgIn($msgIn);
     list($k, $v) = split("=",$decodeMsg);
     $checkCmd = ($data[$k]==$v);
     $i++;
     $app->log->info("SmartHome 'writeStream' iteration: $i, msg in: $msgIn, decode msg: $decodeMsg");
+    $app->log->info("SmartHome 'writeStream' iteration: $i, k=$k, v=$v, data[k]=".$data[$k]);
     if ($checkCmd) $app->log->info("SmartHome 'writeStream' iteration: $i - message sent to Arduino");
-  }  
-  fclose($fp);
+  }
   return true;
 }
 
