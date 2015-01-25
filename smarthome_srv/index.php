@@ -12,7 +12,7 @@ $app = new \Slim\Slim();
 // (Singleton resources retrieve the same log resource definition each time)
 $app->container->singleton('log', function () {
     $log = new \Monolog\Logger('SmartHome Log');
-    $log->pushHandler(new \Monolog\Handler\StreamHandler('../logs/app.log', \Monolog\Logger::DEBUG));
+    $log->pushHandler(new \Monolog\Handler\StreamHandler('logs/app.log', \Monolog\Logger::DEBUG));
     return $log;
 });
 
