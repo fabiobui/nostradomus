@@ -574,6 +574,8 @@ nav li > ol {
 	position: relative;
 	font-family: 'Roboto', sans-serif;
 	font-weight: 300;
+	margin-left: 10px;
+	margin-right: 10px;
 }
 .main-navigation a {
 	color: #444444;
@@ -592,8 +594,14 @@ li.default-menu {
 .main-navigation ul li.current-menu-ancestor a,
 .main-navigation ul li.current_page_item a,
 .main-navigation ul li:hover > a {
-	color: #FFFFFF;
-	background-color: #77CC6D;
+	color: #1daa2f;
+	border-style: solid;
+    border-bottom-width: 3px;
+    border-color: #1daa2f;
+    border-width: 80%;
+    margin-bottom: 5px;
+/*	color: #FFFFFF;
+	background-color: #77CC6D; */
 }
 
 /* =DROP DOWN
@@ -657,6 +665,17 @@ li.default-menu {
 .main-navigation select {
 	display: none;
 }
+
+
+/* CUSTOM CSS F.BUI */
+.signup {
+   float: relative;
+   margin-top: -15px;	
+}
+.signup a:hover {
+	color: #444444;
+}
+
 
 /* =RESPONSIVE MENU
 ----------------------------------------------- */
