@@ -30,6 +30,7 @@ function readMsg($fp) {
 
 
 function readStream(){
+  exec("stty -F ".ARDUINO_PORT." cs8 9600 ignbrk -brkint -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts");
   $fp =fopen(ARDUINO_PORT, "r");
   if( !$fp) {
         echo "Error";die();
