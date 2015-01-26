@@ -30,7 +30,7 @@ function readMsg($fp) {
 
 
 function readStream(){
-  $fp =fopen("/dev/ttyUSB0", "r");
+  $fp =fopen(ARDUINO_PORT, "r");
   if( !$fp) {
         echo "Error";die();
   }
@@ -74,7 +74,7 @@ function writeStream($msgIn) {
   $iter_max = 10;
   $checkCmd = false; 
   while (($checkCmd==false) && ($i<$iter_max)) {    
-    $fp =fopen("/dev/ttyUSB0", "w");
+    $fp =fopen(ARDUINO_PORT, "w");
     if( !$fp) {
         echo "Error";die();
     }
