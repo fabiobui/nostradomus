@@ -1,5 +1,4 @@
 #include <OneWire.h> 
-#include <SoftwareSerial.h>
 #include <RCSwitch.h>
 
 // pins
@@ -28,7 +27,6 @@ boolean season  = false; // winter sesaon
 boolean fan_status = false;
 
 RCSwitch mySwitch = RCSwitch();
-SoftwareSerial TinySerial(SERIAL_RX, SERIAL_TX); // RX, TX
  
 OneWire TemperatureSensor(ONEWIRE_BUSS);  // Dallas one wire data buss pin, a 4.7K resistor pullup is needed
 
@@ -41,13 +39,13 @@ void blink(void){
 
 void readCommand(void){
      // send data only when you receive data:
-   while (TinySerial.available() > 0) {
-       char inChar = (char)TinySerial.read(); 
+   while (Serial.available() > 0) {
+       char inChar = (char)Serial.read(); 
        inputString += inChar;
-    //  TinySerial.println(inputString);
+    //  Serial.println(inputString);
     // if the incoming character is a newline, set a flag
          if ((int)inChar == 13) {
-         // TinySerial.println(inputString);  
+         // Serial.println(inputString);  
          // first char is command, following chars are values
          // Example: H21 set temperatature high (max) to 21
          //          F1, fan on F2 fan off, F0 = auto (temperature driven)
@@ -76,8 +74,8 @@ void readCommand(void){
                  main_sw = swchar;
                break;                
              }
-             while (TinySerial.available()>0) {
-                 byte a = TinySerial.read();
+             while (Serial.available()>0) {
+                 byte a = Serial.read();
              }        
              inputString = "";
          }
@@ -99,8 +97,8 @@ void setup(void) {
    
     pinMode(STATUS_LED, OUTPUT);
     pinMode(FAN, OUTPUT);
-    TinySerial.begin(9600);
- //   TinySerial.println(F("DS18x20 Temperature Switch"));
+    Serial.begin(9600);
+ //   Serial.println(F("DS18x20 Temperature Switch"));
     inputString.reserve(200);
     sendRF(false); // default OFF
     
@@ -150,15 +148,15 @@ void loop()
 
     delay(10);
     readTemp();    
-    TinySerial.print("T=");
-    TinySerial.print(celsius);
+    Serial.print("T=");
+    Serial.print(celsius);
     
 
 
 // general switch ON ?   
     if(main_sw){
        digitalWrite(STATUS_LED,HIGH);
-       TinySerial.print("|MS=ON");
+       Serial.print("|MS=ON");
        if(force_fan_sw==1)  {
            fan_sw = true;
            force_fan_sw = 0;
@@ -180,7 +178,7 @@ void loop()
        // force off everywhere
        digitalWrite(STATUS_LED,LOW);
        digitalWrite(FAN,LOW);
-       TinySerial.print("|MS=OFF");
+       Serial.print("|MS=OFF");
        if (fan_status) sendRF(false);
        fan_sw = false;
        fan_status = false;
@@ -201,20 +199,20 @@ void loop()
     } 
 
     if(fan_status){
-      TinySerial.print("|FAN=ON");
+      Serial.print("|FAN=ON");
       digitalWrite(FAN,HIGH);
     } else {
-      TinySerial.print("|FAN=OFF");
+      Serial.print("|FAN=OFF");
       digitalWrite(FAN,LOW);
     }
     
     if(season)
-      TinySerial.print("|S=summer");
+      Serial.print("|S=summer");
     else
-      TinySerial.print("|S=winter"); 
-    TinySerial.print("|Tmin=");
-    TinySerial.print(t_min);
-    TinySerial.print("|Tmax=");
-    TinySerial.println(t_max);        
+      Serial.print("|S=winter"); 
+    Serial.print("|Tmin=");
+    Serial.print(t_min);
+    Serial.print("|Tmax=");
+    Serial.println(t_max);        
 
 }
