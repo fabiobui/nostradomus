@@ -1,7 +1,8 @@
 <?php
 
-//define("ARDUINO_PORT", "/dev/ttyUSB0");  linux
-define("ARDUINO_PORT", "/dev/tty.usbmodem1431"); // mac
+define("ARDUINO_PORT", "/dev/ttyUSB0"); // linux serial
+//define("ARDUINO_PORT", "/dev/tty.usbmodem1431"); // mac
+//define("ARDUINO_PORT", "/dev/ttyACM0"); // linux direct
 
 date_default_timezone_set('Europe/Rome');
 require 'vendor/autoload.php';

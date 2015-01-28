@@ -30,6 +30,7 @@ function readMsg($fp) {
 
 
 function readStream(){
+  exec("stty -F ".ARDUINO_PORT." cs8 9600 ignbrk -brkint -imaxbel -opost -onlcr -isig -icanon -iexten -echo -echoe -echok -echoctl -echoke noflsh -ixon -crtscts");
   $fp =fopen(ARDUINO_PORT, "r");
   if( !$fp) {
         echo "Error";die();
@@ -78,10 +79,13 @@ function writeStream($msgIn) {
     if( !$fp) {
         echo "Error";die();
     }
-    fread($fp, 1);
-    sleep(2);
-    fwrite($fp, $msgIn."\r");
+    for($j=0; $j<strlen($msgIn); $j++) {
+      fwrite($fp, $msgIn[$j]);
+      sleep(1);
+    }
+    fwrite($fp, "\r");  
     fclose($fp);
+    sleep(2);
     $data = readStream();
     $decodeMsg = decodeMsgIn($msgIn);
     list($k, $v) = split("=",$decodeMsg);
