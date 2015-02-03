@@ -1,4 +1,4 @@
-a:4:{s:4:"root";s:73:"C:\www\nostradomus\nostradomus.it/wp-content/themes/theme45267/style.less";s:8:"compiled";s:24336:"@import url("../CherryFramework/style.css");
+a:4:{s:4:"root";s:96:"/Volumes/MAC_MINI_FABIO/Sites/nostradomus/nostradomus.it/wp-content/themes/theme45267/style.less";s:8:"compiled";s:24336:"@import url("../CherryFramework/style.css");
 @import url(http://fonts.googleapis.com/css?family=Righteous);
 .ie8 .home .posts-grid figure { width:100%; }
 .sf-sub-indicator {
@@ -1076,4 +1076,4 @@ input[type="submit"].btn, input[type="reset"].btn {
 	-moz-box-sizing:border-box;
 	box-sizing:border-box;
 }
-";s:5:"files";a:3:{s:73:"C:\www\nostradomus\nostradomus.it\wp-content\themes\theme45267\style.less";i:1422125647;s:92:"C:\www\nostradomus\nostradomus.it\wp-content\themes\theme45267\bootstrap\less\variables.less";i:1422212010;s:89:"C:\www\nostradomus\nostradomus.it\wp-content\themes\theme45267\bootstrap\less\mixins.less";i:1373730716;}s:7:"updated";i:1422212011;}
+";s:5:"files";a:3:{s:96:"/Volumes/MAC_MINI_FABIO/Sites/nostradomus/nostradomus.it/wp-content/themes/theme45267/style.less";i:1422221390;s:115:"/Volumes/MAC_MINI_FABIO/Sites/nostradomus/nostradomus.it/wp-content/themes/theme45267/bootstrap/less/variables.less";i:1422481238;s:112:"/Volumes/MAC_MINI_FABIO/Sites/nostradomus/nostradomus.it/wp-content/themes/theme45267/bootstrap/less/mixins.less";i:1421955946;}s:7:"updated";i:1422481238;}
