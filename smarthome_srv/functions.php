@@ -79,13 +79,16 @@ function writeStream($msgIn) {
     if( !$fp) {
         echo "Error";die();
     }
+/*   In case Arduino resetting  
     for($j=0; $j<strlen($msgIn); $j++) {
       fwrite($fp, $msgIn[$j]);
       sleep(1);
     }
     fwrite($fp, "\r");  
+*/    
+    fwrite($fp, $msgIn."\r");
     fclose($fp);
-    sleep(2);
+//    sleep(2); in case Arduino resetting
     $data = readStream();
     $decodeMsg = decodeMsgIn($msgIn);
     list($k, $v) = split("=",$decodeMsg);
