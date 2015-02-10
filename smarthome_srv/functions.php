@@ -16,7 +16,7 @@ function readMsg($fp) {
   }
   $data = explode("|", $msg);
   $ret = array();
-  if (is_array($data) && (count($data)==6)) {
+  if (is_array($data) && (count($data)==7)) {
     foreach ($data as $value) {
       list($k, $v) = split("=",$value);
       $ret[$k] = $v;  
@@ -79,13 +79,16 @@ function writeStream($msgIn) {
     if( !$fp) {
         echo "Error";die();
     }
+/*   In case Arduino resetting  
     for($j=0; $j<strlen($msgIn); $j++) {
       fwrite($fp, $msgIn[$j]);
       sleep(1);
     }
     fwrite($fp, "\r");  
+*/    
+    fwrite($fp, $msgIn."\r");
     fclose($fp);
-    sleep(2);
+//    sleep(2); in case Arduino resetting
     $data = readStream();
     $decodeMsg = decodeMsgIn($msgIn);
     list($k, $v) = split("=",$decodeMsg);
