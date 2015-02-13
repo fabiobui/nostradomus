@@ -43,9 +43,9 @@ function jsonCallback(data) {
               var temp_in = parseFloat(data.T);
               $('#temp_in').empty();
               $('#temp_in').append(temp_in.toFixed(1)+'°');
-              var temp_in = parseFloat(data.ExtT)/100.0;
+              var temp_out = parseFloat(data.ExtT);
               $('#temp_out').empty();
-              $('#temp_out').append(temp_in.toFixed(1)+'°');
+              $('#temp_out').append(temp_out.toFixed(1)+'°');
               $('#system_info').append("<p><small>"+data.msg+"</small></p>");
               $('input[name="sw-main"]').bootstrapSwitch('state', (data.MS=='ON'), true);
               $('input[name="sw-fan"]').bootstrapSwitch('state', (data.FAN=='ON'), true);
