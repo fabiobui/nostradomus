@@ -18,4 +18,7 @@ else
     "key":"mypersonalkey",
      "myip":"'"$ipme"'"
   }' > /dev/null 2>&1
+  echo $ipme > /home/fabio/fabiomi_ip.txt
+  scp /home/fabio/fabiomi_ip.txt root@62.149.163.131:/tmp
+  ssh root@62.149.163.131 "chown apache:apache /tmp/fabiomi_ip.txt"
 fi
