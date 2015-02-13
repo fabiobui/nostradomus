@@ -46,6 +46,9 @@ function jsonCallback(data) {
               var temp_out = parseFloat(data.ExtT);
               $('#temp_out').empty();
               $('#temp_out').append(temp_out.toFixed(1)+'°');
+              var lux_out = 100-parseInt(data.Lux);
+              $('#lux_out').empty();
+              $('#lux_out').append(lux_out);           
               $('#system_info').append("<p><small>"+data.msg+"</small></p>");
               $('input[name="sw-main"]').bootstrapSwitch('state', (data.MS=='ON'), true);
               $('input[name="sw-fan"]').bootstrapSwitch('state', (data.FAN=='ON'), true);
@@ -105,6 +108,18 @@ $(document).ready(function() {
     var tmin = $('input[name="t_min"]').val();
     var tmax = $('input[name="t_max"]').val();
     postArduino('T', false, tmin, tmax);
+  });
+
+  $( '#curtUp' ).click( function() {
+    postArduino('C', '1', 0, 0);
+  });
+
+  $( '#curtStop' ).click( function() {
+    postArduino('C', '2', 0, 0);
+  });
+
+  $( '#curtDown' ).click( function() {
+    postArduino('C', '3', 0, 0);
   });
 
 // Initials
