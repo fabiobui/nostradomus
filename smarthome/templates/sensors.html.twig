@@ -97,11 +97,22 @@
                                </button>
                               </div>
                           </div>
-                          <div class="col-lg-4">
+                          <div class="col-lg-4" align="center">
+                              <label>Curtain switch</label><br/>
+                              <input name="sw-curtain" type="checkbox" data-label-text="Auto" checked data-indeterminate="true">
+                              <br/><br/>
+                                <label>Lux</label>
+                                <div class="form-group input-group">
+                                    <input type="text" class="form-control" name="lux" id="lux">
+                                    <span class="input-group-btn">
+                                        <button id="setCurtLux" name="setCurtLux" class="btn btn-success" type="button"><i class="fa fa-bolt"></i>&nbsp;Set
+                                        </button>
+                                    </span>
+                                </div>
                           </div>  
                           <div class="col-lg-4">
                             <div class="panel panel-green">
-                               <div class="text-center"><h4>Light</h4></div>
+                               <div class="text-center"><h4>Ambient Light</h4></div>
                                <div class="panel-heading text-center">
                                    <div class="huge" id="lux_in">&nbsp;</div>
                                    <div>Actual</div>

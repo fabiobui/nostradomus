@@ -55,6 +55,7 @@ function jsonCallback(data) {
               $('input[name="sw-season"]').bootstrapSwitch('state', (data.S=='summer'), true);
               $('input[name="t_min"]').val(data.Tmin);
               $('input[name="t_max"]').val(data.Tmax);
+              $('input[name="lux"]').val(data.Lux);
             }
 }
 
@@ -104,6 +105,12 @@ $(document).ready(function() {
     postArduino('F', stato, 0, 0);
   });
 
+  $('input[name="sw-curtain"]').on('switchChange.bootstrapSwitch', function(event, state) {
+    var stato = (state == false) ? 0 : 1;
+    postArduino('C', stato, 0, 0);
+  });
+
+
   $( '#setTemp' ).click( function() {
     var tmin = $('input[name="t_min"]').val();
     var tmax = $('input[name="t_max"]').val();
@@ -111,15 +118,20 @@ $(document).ready(function() {
   });
 
   $( '#curtUp' ).click( function() {
-    postArduino('C', '1', 0, 0);
-  });
-
-  $( '#curtStop' ).click( function() {
     postArduino('C', '2', 0, 0);
   });
 
-  $( '#curtDown' ).click( function() {
+  $( '#curtStop' ).click( function() {
     postArduino('C', '3', 0, 0);
+  });
+
+  $( '#curtDown' ).click( function() {
+    postArduino('C', '4', 0, 0);
+  });
+
+  $( '#setCurtLux' ).click( function() {
+    var lux = $('input[name="lux"]').val();
+    postArduino('C', lux, 0, 0);
   });
 
 // Initials
@@ -127,4 +139,5 @@ $(document).ready(function() {
   $('input[name="sw-main"]').bootstrapSwitch();
   $('input[name="sw-fan"]').bootstrapSwitch();
   $('input[name="sw-season"]').bootstrapSwitch();
+  $('input[name="sw-curtain"]').bootstrapSwitch();
 });
