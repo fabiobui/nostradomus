@@ -16,7 +16,7 @@ function readMsg($fp) {
   }
   $data = explode("|", $msg);
   $ret = array();
-  if (is_array($data)) {
+  if (is_array($data) && (count($data)==9)) {
     foreach ($data as $value) {
       list($k, $v) = split("=",$value);
       $ret[$k] = $v;  
