@@ -9,14 +9,14 @@ function readMsg($fp) {
   $i = 0;
   $msg = '';
   $read = '';
-  while (($read != "\r") && ($i<80)) {
+  while (($read != "\r") && ($i<100)) {
     $read = fread($fp, 1);
     if ($read != "\r") $msg .= $read;
     $i++;
   }
   $data = explode("|", $msg);
   $ret = array();
-  if (is_array($data) && (count($data)==10)) {
+  if (is_array($data) && (count($data)==11)) {
     foreach ($data as $value) {
       list($k, $v) = split("=",$value);
       $ret[$k] = $v;  
@@ -64,6 +64,9 @@ function decodeMsgIn($msgIn) {
 			  $ret = 'MS=';
 			  $ret .= ($val=='1') ? 'ON' : 'OFF'; 
 			break;
+    case 'C':
+    // to do
+        break;  
 	}
 	return $ret;
 }
@@ -89,13 +92,17 @@ function writeStream($msgIn) {
     fwrite($fp, $msgIn."\r");
     fclose($fp);
 //    sleep(2); in case Arduino resetting
-    $data = readStream();
-    $decodeMsg = decodeMsgIn($msgIn);
-    list($k, $v) = split("=",$decodeMsg);
-    $checkCmd = ($data[$k]==$v);
-    $i++;
-    $app->log->info("SmartHome 'writeStream' iteration: $i, msg in: $msgIn, decode msg: $decodeMsg");
-    $app->log->info("SmartHome 'writeStream' iteration: $i, k=$k, v=$v, data[k]=".$data[$k]);
+    if (substr($msgIn, 0, 1)=='C') {
+      $checkCmd = true;
+    } else {
+      $data = readStream();
+      $decodeMsg = decodeMsgIn($msgIn);
+      list($k, $v) = split("=",$decodeMsg);
+      $checkCmd = ($data[$k]==$v);
+      $i++;
+      $app->log->info("SmartHome 'writeStream' iteration: $i, msg in: $msgIn, decode msg: $decodeMsg");
+      $app->log->info("SmartHome 'writeStream' iteration: $i, k=$k, v=$v, data[k]=".$data[$k]);
+    }  
     if ($checkCmd) $app->log->info("SmartHome 'writeStream' iteration: $i - message sent to Arduino");
   }
   return true;
