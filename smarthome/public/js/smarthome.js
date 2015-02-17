@@ -46,7 +46,7 @@ function jsonCallback(data) {
               var temp_out = parseFloat(data.ExtT);
               $('#temp_out').empty();
               $('#temp_out').append(temp_out.toFixed(1)+'°');
-              var lux_out = 100-parseInt(data.ExtLux);
+              var lux_out = parseInt(data.ExtLux);
               $('#lux_out').empty();
               $('#lux_out').append(lux_out);           
               $('#system_info').append("<p><small>"+data.msg+"</small></p>");
