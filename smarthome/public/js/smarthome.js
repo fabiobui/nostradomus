@@ -48,11 +48,15 @@ function jsonCallback(data) {
               $('#temp_out').append(temp_out.toFixed(1)+'°');
               var lux_out = parseInt(data.ExtLux);
               $('#lux_out').empty();
-              $('#lux_out').append(lux_out);           
+              $('#lux_out').append(lux_out);      
+              var lux_in = parseInt(data.IntLux);
+              $('#lux_in').empty();
+              $('#lux_in').append(lux_in);      
               $('#system_info').append("<p><small>"+data.msg+"</small></p>");
               $('input[name="sw-main"]').bootstrapSwitch('state', (data.MS=='ON'), true);
               $('input[name="sw-fan"]').bootstrapSwitch('state', (data.FAN=='ON'), true);
               $('input[name="sw-season"]').bootstrapSwitch('state', (data.S=='summer'), true);
+              $('input[name="sw-curtain"]').bootstrapSwitch('state', (data.AutoCurt=='ON'), true);
               $('input[name="t_min"]').val(data.Tmin);
               $('input[name="t_max"]').val(data.Tmax);
               $('input[name="lux"]').val(data.Lux);
@@ -76,6 +80,7 @@ function postArduino(sensor, state, tmin, tmax) {
     jsonpCallback: 'jsonCallback',
     data : {"sensor": sensor, "state": state, "tmin": tmin, "tmax" : tmax},
     success: function(data) {
+            getArduino();
             Hide_Load();
     },
     error: function (xhr, ajaxOptions, thrownError) {

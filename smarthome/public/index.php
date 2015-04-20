@@ -72,6 +72,13 @@ $app->get('/sensors', 'authenticate', function () use ($app) {
     $app->render('sensors.html.twig', array('ip_server' => $_SESSION['server_url']));
 });
 
+$app->get('/settings', 'authenticate', function () use ($app) {
+    // Sample log message
+    $app->log->info("SmartHome '/settings' route");
+    $env = $app->environment(); 
+    // Render index view
+    $app->render('settings.html.twig', array('ip_server' => $_SESSION['server_url']));
+});
 
 // Define 404 template
 $app->notFound(function () use ($app) {

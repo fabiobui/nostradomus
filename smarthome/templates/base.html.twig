@@ -46,7 +46,8 @@
             <ul class="nav navbar-nav">
                 <li class="{{ getActiveClass('') }}"><a href="/"><i class="fa fa-dashboard fa-fw fa-2x"></i> Dashboard</a></li>
                 <li class="{{ getActiveClass('/sensors') }}"><a href="/sensors"><i class="fa fa-tasks fa-fw fa-2x"></i> Sensors</a></li> 
-                  <li class="{{ getActiveClass('/logs') }}"><a href="/logs"><i class="fa fa-table fa-fw fa-2x"></i> Logs</a></li>                  
+                  <li class="{{ getActiveClass('/logs') }}"><a href="/logs"><i class="fa fa-table fa-fw fa-2x"></i> Logs</a></li>
+                <li class="{{ getActiveClass('/settings') }}"><a href="/settings"><i class="fa fa-gear fa-fw fa-2x"></i> Settings</a></li>                                     
                 <!-- /.dropdown -->
             </ul>
             <ul class="nav navbar-top-links navbar-right">    
@@ -57,7 +58,7 @@
                     <ul class="dropdown-menu dropdown-user">
                         <li><a href="/profile"><i class="fa fa-user fa-fw"></i> User Profile</a>
                         </li>
-                        <li><a href="/settings"><i class="fa fa-gear fa-fw"></i> Settings</a>
+                        <li><a href="/settings"><i class="fa fa-gear fa-fw"></i> Personal Settings</a>
                         </li>
                         <li class="divider"></li>
                         <li><a href="/logout"><i class="fa fa-sign-out fa-fw"></i> Logout</a>
