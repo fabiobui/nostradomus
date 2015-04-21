@@ -1,14 +1,14 @@
 #!/bin/bash
 apiKey="TD5ODXR1W42SDF6F" # ThingSpeak channel write API key, put your own
 msg=""
-skip=1
+skip=0
 cat /dev/ttyUSB0 | while read msg; do
-  if [[ $skip == 1 ]] 
+  let "skip++"
+  if [[ $skip -lt 3 ]] 
   then
-    skip=0
     continue
   fi  
-#  echo "$msg"
+  echo "$msg"
   msg="${msg/ExtT=/field3=}"  
   msg="${msg/T=/field1=}"
   msg="${msg/IntLux=/field2=}"
@@ -22,9 +22,12 @@ cat /dev/ttyUSB0 | while read msg; do
     fi  
   done
   update=${update:1}
-#  echo "$update"
+  echo "$update"
   curl --silent --request POST --header "X-THINGSPEAKAPIKEY: $apiKey" --data "$update" "http://api.thingspeak.com/update"
-  sleep 1m
-  msg=""
+  if [[ $skip == 3 ]] 
+  then
+    break
+  fi  
 done
+
 
