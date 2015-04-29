@@ -48,10 +48,16 @@ function jsonCallback(data) {
               $('#temp_out').append(temp_out.toFixed(1)+'°');
               var lux_out = parseInt(data.ExtLux);
               $('#lux_out').empty();
-              $('#lux_out').append(lux_out);      
+              $('#lux_out').append(lux_out);  
+              var hum_out = parseInt(data.ExtHumi);
+              $('#hum_out').empty();
+              $('#hum_out').append(hum_out);     
               var lux_in = parseInt(data.IntLux);
               $('#lux_in').empty();
-              $('#lux_in').append(lux_in);      
+              $('#lux_in').append(lux_in);  
+              var mbar_in = parseFloat(data.Mbar);
+              $('#mbar_in').empty();
+              $('#mbar_in').append(mbar_in.toFixed(1));    
               $('#system_info').append("<p><small>"+data.msg+"</small></p>");
               $('input[name="sw-main"]').bootstrapSwitch('state', (data.MS=='ON'), true);
               $('input[name="sw-fan"]').bootstrapSwitch('state', (data.FAN=='ON'), true);
