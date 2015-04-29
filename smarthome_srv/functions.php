@@ -6,17 +6,20 @@
 
 
 function readMsg($fp) {
+  $app = \Slim\Slim::getInstance();
+
   $i = 0;
   $msg = '';
   $read = '';
-  while (($read != "\r") && ($i<100)) {
+  while (($read != "\r") && ($i<200)) {
     $read = fread($fp, 1);
     if ($read != "\r") $msg .= $read;
     $i++;
   }
+  $app->log->info("SmartHome 'msg' =".$msg);
   $data = explode("|", $msg);
   $ret = array();
-  if (is_array($data) && (count($data)==11)) {
+  if (is_array($data) && (count($data)==14)) {
     foreach ($data as $value) {
       list($k, $v) = split("=",$value);
       $ret[$k] = $v;  

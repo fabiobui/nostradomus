@@ -15,14 +15,14 @@ cat /dev/ttyACM0 | while read msg; do
   echo "$NodeId"
   update=""
   if [[ $NodeId == 45 ]] 
-  then
-    apiKey="TD5ODXR1W42SDF6F" # ThingSpeak channel write API key, put your own
-    flag1=true  
-    msg="${msg/Temp=/field5=}"  
-    msg="${msg/Lux=/field6=}"
-    msg="${msg/Millivolts=/field7=}"
-  fi
-  if [[ $NodeId == 50 ]] 
+  then  
+    apiKey="Y07QGUBLUWD22E7X"
+    flag1=true
+    msg="${msg/Temp=/field1=}"  
+    msg="${msg/Lux=/field2=}"
+    msg="${msg/Millivolts=/field3=}"
+  fi  
+  if [[ $NodeId == 71 ]] 
   then  
     apiKey="64VU333KPHUIGPNP"
     flag2=true
@@ -32,7 +32,7 @@ cat /dev/ttyACM0 | while read msg; do
     msg="${msg/Soil=/field4=}"
     msg="${msg/Temp2=/field5=}"
     msg="${msg/Humidity=/field6=}"
-  fi  
+  fi    
   IFS='|' read -ra ADDR <<< "$msg"
   for i in "${ADDR[@]}"; do
     if [[ $i == field* ]]
@@ -44,7 +44,7 @@ cat /dev/ttyACM0 | while read msg; do
   echo "$update"
   curl --silent --request POST --header "X-THINGSPEAKAPIKEY: $apiKey" --data "$update" "http://api.thingspeak.com/update"
 
-  if [ $skip == 5 ] || ([ $flag1 == true ] && [ $flag2 == true ]); then
+  if [ $skip == 7 ] || ([ $flag1 == true ] && [ $flag2 == true ]); then
     break
   fi  
 done

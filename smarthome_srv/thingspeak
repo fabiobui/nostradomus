@@ -13,6 +13,8 @@ cat /dev/ttyUSB0 | while read msg; do
   msg="${msg/T=/field1=}"
   msg="${msg/IntLux=/field2=}"
   msg="${msg/ExtLux=/field4=}"
+  msg="${msg/Mbar=/field5=}"
+  msg="${msg/ExtHumi=/field6=}"
   update=""
   IFS='|' read -ra ADDR <<< "$msg"
   for i in "${ADDR[@]}"; do
