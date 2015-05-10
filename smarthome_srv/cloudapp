@@ -1,0 +1,43 @@
+#!/bin/bash
+apiKey="VOWBJ95KBRT6BRY8" # ThingSpeak channel write API key, put your own
+msg=""
+skip=1
+flag=false
+cat /dev/ttyUSB0 | while read msg; do
+  let "skip++"
+  if [[ $skip -lt 3 ]] 
+  then
+    continue
+  fi  
+  echo "$msg"
+  msg=${msg:1}
+  NodeId=${msg:7:2}
+  echo "$NodeId"
+  update=""
+  if [[ $NodeId == 11 ]] 
+  then  
+    flag=true
+    msg="${msg/ExtT=/field3=}"  
+    msg="${msg/T=/field1=}"
+    msg="${msg/IntLux=/field2=}"
+    msg="${msg/ExtLux=/field4=}"
+    msg="${msg/Mbar=/field5=}"
+    msg="${msg/ExtHumi=/field6=}"
+  fi  
+  IFS='|' read -ra ADDR <<< "$msg"
+  for i in "${ADDR[@]}"; do
+    if [[ $i == field* ]]
+    then  
+      update="$update&$i"
+    fi  
+  done
+  update=${update:1}
+  echo "$update"
+  curl --silent --request POST --header "X-THINGSPEAKAPIKEY: $apiKey" --data "$update" "http://nostradomus.cloudapp.net/update"
+
+  if [ $skip == 5 ] || [ $flag == true ]; then
+    break
+  fi  
+done
+
+
