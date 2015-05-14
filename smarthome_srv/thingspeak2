@@ -42,8 +42,9 @@ cat /dev/ttyUSB0 | while read msg; do
   done
   update=${update:1}
   echo "$update"
-  curl --silent --request POST --header "X-THINGSPEAKAPIKEY: $apiKey" --data "$update" "http://api.thingspeak.com/update"
-
+  if [ $flag1 == true ] || [ $flag2 == true ]; then    
+    curl --silent --request POST --header "X-THINGSPEAKAPIKEY: $apiKey" --data "$update" "http://api.thingspeak.com/update"
+  fi
   if [ $skip == 10 ] || ([ $flag1 == true ] && [ $flag2 == true ]); then
     break
   fi  
