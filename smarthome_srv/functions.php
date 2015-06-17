@@ -11,9 +11,9 @@ function readMsg($fp) {
   $i = 0;
   $msg = '';
   $read = '';
-  while (($read != "\r") && ($read != "\n") && ($i<200)) {
+  while (($read != "\n") && ($i<200)) {
     $read = fread($fp, 1);
-    if ($read != "\r") && ($read != "\n") $msg .= $read;
+    if ($read != "\n") $msg .= $read;
     $i++;
   }
   $app->log->info("SmartHome 'msg' =".$msg);
