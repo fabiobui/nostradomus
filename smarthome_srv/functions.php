@@ -19,19 +19,14 @@ function readMsg($fp) {
   $app->log->info("SmartHome 'msg' =".$msg);
   $data = explode("|", $msg);
   $ret = array();
-  $trovato = false;
   if (is_array($data) && (count($data)>2)) {
     foreach ($data as $value) {
       list($k, $v) = split("=",$value);
       $k=trim($k);
       $ret[$k] = trim($v);  
-      if ($k=="@NodeId") $trovato = $v;
     }
     $ret['msg'] = $msg;
-    if ($trovato=="11")
-      return $ret;
-    else
-      return false;
+    return $ret;
   } else {
     return false;
   }
