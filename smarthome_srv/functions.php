@@ -45,7 +45,7 @@ function readStream(){
         echo "Error";die();
   }
   $i = 0;
-  while ((($data = readMsg($fp))==false) && ($i<10)) $i++;
+  while ((($data = readMsg($fp))==false) && (count($data)<14) && ($i<5)) $i++;
   fclose($fp);
   return $data; 
 }
