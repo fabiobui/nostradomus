@@ -19,13 +19,19 @@ function readMsg($fp) {
   $app->log->info("SmartHome 'msg' =".$msg);
   $data = explode("|", $msg);
   $ret = array();
+  $trovato = false;
   if (is_array($data) && (count($data)>2)) {
     foreach ($data as $value) {
       list($k, $v) = split("=",$value);
-      $ret[$k] = $v;  
+      $k=trim($k);
+      $ret[$k] = trim($v);  
+      if ($k=="@NodeId") $trovato = $v;
     }
     $ret['msg'] = $msg;
-    return $ret; 
+    if ($trovato=="11")
+      return $ret;
+    else
+      return false;
   } else {
     return false;
   }
@@ -39,7 +45,7 @@ function readStream(){
         echo "Error";die();
   }
   $i = 0;
-  while ((($data = readMsg($fp))==false) && ($data["@NodeId"]=="11") && ($i<5)) $i++;
+  while ((($data = readMsg($fp))==false) && ($i<10)) $i++;
   fclose($fp);
   return $data; 
 }

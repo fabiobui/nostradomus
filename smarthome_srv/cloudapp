@@ -14,15 +14,15 @@ cat /dev/ttyUSB0 | while read msg; do
   NodeId=${msg:7:2}
   echo "$NodeId"
   update=""
-  if [[ $NodeId == 11 ]] 
+  if [[ $NodeId == 79 ]] 
   then  
     flag=true
-    msg="${msg/ExtT=/field3=}"  
-    msg="${msg/T=/field1=}"
-    msg="${msg/IntLux=/field2=}"
-    msg="${msg/ExtLux=/field4=}"
-    msg="${msg/Mbar=/field5=}"
-    msg="${msg/ExtHumi=/field6=}"
+    msg="${msg/Temp=/field1=}"  
+    msg="${msg/Lux=/field2=}"
+    msg="${msg/Millivolts=/field3=}"
+    msg="${msg/Soil=/field4=}"
+    msg="${msg/Temp2=/field5=}"
+    msg="${msg/Humidity=/field6=}"
   fi  
   IFS='|' read -ra ADDR <<< "$msg"
   for i in "${ADDR[@]}"; do
@@ -35,7 +35,7 @@ cat /dev/ttyUSB0 | while read msg; do
   echo "$update"
   curl --silent --request POST --header "X-THINGSPEAKAPIKEY: $apiKey" --data "$update" "http://nostradomus.cloudapp.net/update"
 
-  if [ $skip == 5 ] || [ $flag == true ]; then
+  if [ $skip == 50 ] || [ $flag == true ]; then
     break
   fi  
 done
